@@ -129,6 +129,7 @@
   <string name="open_source_license">Open Source licenses</string>
   <string name="open_source_license_summary">Show open source licenses</string>
   <string name="open_a_file">Open a file</string>
+  <string name="open_folder">Open folder</string>
   <string name="open_this_time_only">Open this time only</string>
   <string name="change_list_type">Change the list type</string>
   <string name="use_monospace">Use monospace</string>

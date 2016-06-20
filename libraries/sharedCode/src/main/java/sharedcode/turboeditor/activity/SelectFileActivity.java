@@ -66,7 +66,11 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
     private MenuItem mSearchViewMenuItem;
     private SearchView mSearchView;
     private Filter filter;
-
+    private int prevposition = 0;
+    private FloatingActionButton mFab;
+    private boolean mfabOkMode = false;
+    private File selectedFile;
+    private boolean folderOpenMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,39 +87,46 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
 
         //final Actions action = (Actions) getIntent().getExtras().getSerializable("action");
         wantAFile = true; //action == Actions.SelectFile;
+        mfabOkMode = false;
+        folderOpenMode = getIntent().getBooleanExtra("foldermode", false);
 
         listView = (ListView) findViewById(android.R.id.list);
         listView.setOnItemClickListener(this);
         listView.setTextFilterEnabled(true);
 
-        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fabbutton);
+        mFab = (FloatingActionButton) findViewById(R.id.fabbutton);
         mFab.setColor(getResources().getColor(R.color.fab_light));
         mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_add));
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(SelectFileActivity.this, v);
+                if (!mfabOkMode) {
+                    PopupMenu popup = new PopupMenu(SelectFileActivity.this, v);
 
-                popup.getMenuInflater().inflate(R.menu.popup_new_file, popup.getMenu());
+                    popup.getMenuInflater().inflate(R.menu.popup_new_file, popup.getMenu());
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int i = item.getItemId();
-                        if (i == R.id.im_new_file) {
-                            EditTextDialog.newInstance(EditTextDialog.Actions.NewFile).show(getFragmentManager().beginTransaction(), "dialog");
-                            return true;
-                        } else if (i == R.id.im_new_folder) {
-                            EditTextDialog.newInstance(EditTextDialog.Actions.NewFolder).show(getFragmentManager().beginTransaction(), "dialog");
-                            return true;
-                        } else {
-                            return false;
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            int i = item.getItemId();
+                            if (i == R.id.im_new_file) {
+                                EditTextDialog.newInstance(EditTextDialog.Actions.NewFile).show(getFragmentManager().beginTransaction(), "dialog");
+                                return true;
+                            } else if (i == R.id.im_new_folder) {
+                                EditTextDialog.newInstance(EditTextDialog.Actions.NewFolder).show(getFragmentManager().beginTransaction(), "dialog");
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
-                    }
-                });
+                    });
 
-                popup.show();
+                    popup.show();
+                }
+                if (mfabOkMode) {
+                    finishWithResult(selectedFile);
+                }
             }
         });
 
@@ -168,6 +179,7 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
     private void finishWithResult(File file) {
         if (file != null) {
             Uri uri = Uri.fromFile(file);
+            Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK, new Intent().setData(uri));
             finish();
         } else {
@@ -177,10 +189,10 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
     }
 
 
-
     @Override
     public void onItemClick(AdapterView<?> parent,
                             View view, int position, long id) {
+
         final String name = ((TextView) view.findViewById(android.R.id.text1)).getText().toString();
         if (name.equals("..")) {
             if (currentFolder.equals("/")) {
@@ -192,21 +204,62 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
                             .getParentFile();
                 } else {
                     tempFile = tempFile.getParentFile();
+
                 }
                 new UpdateList().execute(tempFile.getAbsolutePath());
+            }
+            if (mfabOkMode) {
+                prevposition = 0;
+                mfabOkMode = false;
+                mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_add));
             }
             return;
         } else if (name.equals(getString(R.string.home))) {
             new UpdateList().execute(PreferenceHelper.getWorkingFolder(this));
+            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+            if (mfabOkMode) {
+                prevposition = 0;
+                mfabOkMode = false;
+                mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_add));
+            }
             return;
         }
 
-        final File selectedFile = new File(currentFolder, name);
+        //final File selectedFile = new File(currentFolder, name);
+        selectedFile = new File(currentFolder, name);
 
-        if (selectedFile.isFile() && wantAFile) {
-            finishWithResult(selectedFile);
-        } else if (selectedFile.isDirectory()) {
-            new UpdateList().execute(selectedFile.getAbsolutePath());
+        if (!folderOpenMode) {
+            if (selectedFile.isFile() && wantAFile) {
+                if (prevposition == position)
+                    finishWithResult(selectedFile);
+                else {
+                    prevposition = position;
+                    mfabOkMode = true;
+                    mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_ok));
+                    view.setSelected(true);
+                }
+            } else if (selectedFile.isDirectory()) {
+                //Toast.makeText(this, "its folder", Toast.LENGTH_SHORT).show();
+                new UpdateList().execute(selectedFile.getAbsolutePath());
+            }
+        } else if (folderOpenMode) {
+            if (selectedFile.isDirectory()) {
+                if (prevposition == position) {
+                    new UpdateList().execute(selectedFile.getAbsolutePath());
+                    if (mfabOkMode) {
+                        prevposition = 0;
+                        mfabOkMode = false;
+                        mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_add));
+                    }
+                } else {
+                    prevposition = position;
+                    mfabOkMode = true;
+                    mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_ok));
+                    view.setSelected(true);
+                }
+            } else if (selectedFile.isFile()) {
+
+            }
         }
     }
 

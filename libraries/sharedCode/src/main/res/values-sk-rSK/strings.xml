@@ -71,6 +71,7 @@
   <string name="open">Otvoriť</string>
   <string name="file_saved_with_success">Súbor %1$s bol úspešne uložený!</string>
   <string name="open_a_file">Otvoriť súbor</string>
+  <string name="open_folder">Open folder</string>
   <string name="no">Nie</string>
   <string name="new_file">Nový súbor</string>
   <string name="delete_current_file">Vymazať aktuálny súbor</string>

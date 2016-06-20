@@ -200,6 +200,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:text="@string/open_folder"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:textSize="12sp"
+                android:textColor="@color/navigation_drawer_button_text_color_inverted"
+                android:clickable="true"
+                android:onClick="OpenFolder"
+                android:background="?selectableItemBackground"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
                 android:text="@string/preferenze"
                 android:gravity="center_vertical"
                 android:paddingStart="20dp"
