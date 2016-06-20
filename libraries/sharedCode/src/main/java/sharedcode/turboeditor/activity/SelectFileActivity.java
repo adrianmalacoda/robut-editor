@@ -89,6 +89,8 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
         wantAFile = true; //action == Actions.SelectFile;
         mfabOkMode = false;
         folderOpenMode = getIntent().getBooleanExtra("foldermode", false);
+        if(folderOpenMode)
+            setTitle("Open Folder");
 
         listView = (ListView) findViewById(android.R.id.list);
         listView.setOnItemClickListener(this);

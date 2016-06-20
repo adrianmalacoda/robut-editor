@@ -178,7 +178,6 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
     private PageSystemButtons pageSystemButtons;
     private static String currentEncoding = "UTF-16";
     private Toolbar toolbar;
-
     /*
     Navigation Drawer
      */
@@ -356,10 +355,11 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                     refreshList(newUri, true, false);
                     arrayAdapter.selectPosition(newUri);
                 }
-
-                Uri particularUri = Uri.parse("file://" + fileList[0].getPath());
-                final GreatUri newUri = new GreatUri(particularUri, AccessStorageApi.getPath(this, particularUri), AccessStorageApi.getName(this, particularUri));
-                newFileToOpen(newUri, "");
+                if(fileList.length > 0) {
+                    Uri particularUri = Uri.parse("file://" + fileList[0].getPath());
+                    final GreatUri newUri = new GreatUri(particularUri, AccessStorageApi.getPath(this, particularUri), AccessStorageApi.getName(this, particularUri));
+                    newFileToOpen(newUri, "");
+                }
 
             } else {
 
@@ -1234,7 +1234,6 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
         subActivity.putExtra("foldermode",true);
         subActivity.putExtra("action", SelectFileActivity.Actions.SelectFile);
         AnimationUtils.startActivityWithScale(this, subActivity, true, SELECT_FOLDER_CODE, view);
-
 
     }
 
