@@ -54,6 +54,7 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
     private boolean sAutoSave;
     private boolean sIgnoreBackButton;
     private boolean sSplitText;
+    private boolean sSplitByLine;
     private boolean sErrorReports;
 
     @Override
@@ -71,6 +72,7 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
         sAutoSave = PreferenceHelper.getAutoSave(context);
         sIgnoreBackButton = PreferenceHelper.getIgnoreBackButton(context);
         sSplitText = PreferenceHelper.getSplitText(context);
+        sSplitByLine = PreferenceHelper.getSplitByLine(context);
         sErrorReports = PreferenceHelper.getSendErrorReports(context);
     }
 
@@ -80,7 +82,7 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
         // Our custom layout
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         final SwitchCompat swLineNumbers, swSyntax, swWrapContent, swMonospace, swReadOnly;
-        final SwitchCompat swSuggestions, swAccessoryView, swStorageAccessFramework, swAutoSave, swIgnoreBackButton, swSplitText, swErrorReports;
+        final SwitchCompat swSuggestions, swAccessoryView, swStorageAccessFramework, swAutoSave, swIgnoreBackButton, swSplitText, swSplitByLine, swErrorReports;
         
         swLineNumbers = (SwitchCompat) rootView.findViewById(R.id.switch_line_numbers);
         swSyntax = (SwitchCompat) rootView.findViewById(R.id.switch_syntax);
@@ -94,6 +96,8 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
         swAutoSave = (SwitchCompat) rootView.findViewById(R.id.switch_auto_save);
         swIgnoreBackButton = (SwitchCompat) rootView.findViewById(R.id.switch_ignore_backbutton);
         swSplitText = (SwitchCompat) rootView.findViewById(R.id.switch_page_system);
+        swSplitByLine = (SwitchCompat) rootView.findViewById(R.id.split_by_line);
+
         swErrorReports = (SwitchCompat) rootView.findViewById(R.id.switch_send_error_reports);
 
         swLineNumbers.setChecked(sLineNumbers);
@@ -108,6 +112,7 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
         swAutoSave.setChecked(sAutoSave);
         swIgnoreBackButton.setChecked(sIgnoreBackButton);
         swSplitText.setChecked(sSplitText);
+        swSplitByLine.setChecked(sSplitByLine);
         swErrorReports.setChecked(sErrorReports);
 
         TextView fontSizeView, encodingView, extraOptionsView, themeView, goPro;
@@ -259,6 +264,14 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 PreferenceHelper.setSplitText(getActivity(), isChecked);
+                swSplitByLine.setEnabled(isChecked);
+            }
+        });
+
+        swSplitByLine.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferenceHelper.setSplitByLine(getActivity(), isChecked);
             }
         });
 

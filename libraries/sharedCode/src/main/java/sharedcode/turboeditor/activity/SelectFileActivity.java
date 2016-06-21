@@ -181,7 +181,7 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
     private void finishWithResult(File file) {
         if (file != null) {
             Uri uri = Uri.fromFile(file);
-            Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK, new Intent().setData(uri));
             finish();
         } else {
@@ -242,6 +242,11 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
                 }
             } else if (selectedFile.isDirectory()) {
                 //Toast.makeText(this, "its folder", Toast.LENGTH_SHORT).show();
+                if (mfabOkMode) {
+                    prevposition = 0;
+                    mfabOkMode = false;
+                    mFab.setDrawable(getResources().getDrawable(R.drawable.ic_fab_add));
+                }
                 new UpdateList().execute(selectedFile.getAbsolutePath());
             }
         } else if (folderOpenMode) {

@@ -83,6 +83,7 @@
     <item type="id" name="drawer_button_extra_options"/>
     <item type="id" name="switch_ignore_backbutton"/>
     <item type="id" name="switch_page_system"/>
+    <item type="id" name="split_by_line"/>
     <item type="id" name="switch_send_error_reports"/>
     <item type="id" name="switch_accessory_view"/>
     <item type="id" name="switch_storage_access_framework"/>
