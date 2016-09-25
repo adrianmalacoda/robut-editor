@@ -2,14 +2,14 @@
 <!--
   ~ Copyright (C) 2014 Vlad Mihalachi
   ~
-  ~ This file is part of Turbo Editor.
+  ~ This file is part of Robut Editor.
   ~
-  ~ Turbo Editor is free software: you can redistribute it and/or modify
+  ~ Robut Editor is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ Turbo Editor is distributed in the hope that it will be useful,
+  ~ Robut Editor is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   ~ GNU General Public License for more details.
@@ -73,7 +73,7 @@
     </changelogversion>
 
     <changelogversion versionName="1.13" changeDate="Oct 25, 2014">
-        <changelogtext>Turbo Editor is a free and open source app. Now you can show your appreciation and support development by donating :)</changelogtext>
+        <changelogtext>Robut Editor is a free and open source app. Now you can show your appreciation and support development by donating :)</changelogtext>
         <changelogtext>New visual changes to make the app more "Material"</changelogtext>
         <changelogtext>New save dialog when you are about to close a file</changelogtext>
         <changelogtext>Many enchantments and fixes</changelogtext>
@@ -86,7 +86,7 @@
 
     <changelogversion versionName="1.11" changeDate="Sep 30, 2014">
         <changelogtext>[b]New! [/b]Important improvements to the syntax highlight</changelogtext>
-        <changelogtext>[b]New! [/b]Donation option in the about screen. Help to make Turbo Editor a better software! :)</changelogtext>
+        <changelogtext>[b]New! [/b]Donation option in the about screen. Help to make Robut Editor a better software! :)</changelogtext>
         <changelogtext>[b]New! [/b]Setting to disable the "page system"</changelogtext>
         <changelogtext>[b]New! [/b]Setting to ignore the back button</changelogtext>
         <changelogtext>Fixed an issue related to cut/copy/past buttons</changelogtext>
@@ -103,7 +103,7 @@
         <changelogtext>[b]New! [/b]Create empty files with just one click</changelogtext>
         <changelogtext>[b]New! [/b]Read only mode</changelogtext>
         <changelogtext>[b]New! [/b]Autosave function, to save files when the app loses focus</changelogtext>
-        <changelogtext>[b]New! [/b]Share the text from other apps to Turbo Editor</changelogtext>
+        <changelogtext>[b]New! [/b]Share the text from other apps to Robut Editor</changelogtext>
         <changelogtext>[b]New! [/b]Style changes</changelogtext>
         <changelogtext>Other enchantments and fixs</changelogtext>
     </changelogversion>

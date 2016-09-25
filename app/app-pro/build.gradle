@@ -1,14 +1,15 @@
 /*
+ * Copyright (C) 2016 Adrian Malacoda
  * Copyright (C) 2014 Vlad Mihalachi
  *
- * This file is part of Turbo Editor.
+ * This file is part of Robut Editor.
  *
- * Turbo Editor is free software: you can redistribute it and/or modify
+ * Robut Editor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Turbo Editor is distributed in the hope that it will be useful,
+ * Robut Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -26,11 +27,11 @@ android {
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        applicationId "com.maskyn.fileeditorpro"
+        applicationId "net.monarchpass.android.robuteditor"
         minSdkVersion 11
         targetSdkVersion 22
-        versionCode 47
-        versionName "1.19"
+        versionCode 48
+        versionName "1.20"
     }
 
     compileOptions {
