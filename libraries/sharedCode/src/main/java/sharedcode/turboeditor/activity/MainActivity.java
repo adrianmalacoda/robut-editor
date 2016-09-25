@@ -1754,6 +1754,9 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_TAB:
                         return true;
+                    case KeyEvent.KEYCODE_SHIFT_LEFT:
+                    case KeyEvent.KEYCODE_SHIFT_RIGHT:
+                        return super.onKeyUp(keyCode, event);
                     default:
                         return false;
                 }
