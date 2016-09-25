@@ -37,7 +37,6 @@ import com.maskyn.fileeditorpro.dialogfragment.EncodingDialog;
 import com.maskyn.fileeditorpro.dialogfragment.NumberPickerDialog;
 import com.maskyn.fileeditorpro.dialogfragment.ThemeDialog;
 import com.maskyn.fileeditorpro.util.Device;
-import com.maskyn.fileeditorpro.util.ProCheckUtils;
 import com.maskyn.fileeditorpro.util.ViewUtils;
 
 public class SettingsFragment extends Fragment implements NumberPickerDialog.INumberPickerDialog, EncodingDialog.DialogListener, ThemeDialog.DialogListener {
@@ -115,28 +114,14 @@ public class SettingsFragment extends Fragment implements NumberPickerDialog.INu
         swSplitByLine.setChecked(sSplitByLine);
         swErrorReports.setChecked(sErrorReports);
 
-        TextView fontSizeView, encodingView, extraOptionsView, themeView, goPro;
-        goPro = (TextView) rootView.findViewById(R.id.drawer_button_go_pro);
+        TextView fontSizeView, encodingView, extraOptionsView, themeView;
         fontSizeView = (TextView) rootView.findViewById(R.id.drawer_button_font_size);
         encodingView = (TextView) rootView.findViewById(R.id.drawer_button_encoding);
         extraOptionsView = (TextView) rootView.findViewById(R.id.drawer_button_extra_options);
         themeView = (TextView) rootView.findViewById(R.id.drawer_button_theme);
 
-        ViewUtils.setVisible(goPro, !ProCheckUtils.isPro(getActivity()));
         ViewUtils.setVisible(swStorageAccessFramework, Device.hasKitKatApi());
-
-        goPro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String appPackageName = "com.maskyn.fileeditorpro";
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-            }
-        });
-
+        
         swLineNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

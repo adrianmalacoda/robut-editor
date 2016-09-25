@@ -115,7 +115,6 @@ import com.maskyn.fileeditorpro.util.Device;
 import com.maskyn.fileeditorpro.util.GreatUri;
 import com.maskyn.fileeditorpro.util.IHomeActivity;
 import com.maskyn.fileeditorpro.util.MimeTypes;
-import com.maskyn.fileeditorpro.util.ProCheckUtils;
 import com.maskyn.fileeditorpro.util.ThemeUtils;
 import com.maskyn.fileeditorpro.util.ViewUtils;
 import com.maskyn.fileeditorpro.views.CustomDrawerLayout;
@@ -468,11 +467,6 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                 shareAction.setShareIntent(shareIntent);
             }
         }
-
-        MenuItem imDonate = menu.findItem(R.id.im_donate);
-        if (imDonate != null)
-            if (ProCheckUtils.isPro(this, false))
-                imDonate.setVisible(false);
 
         return true;
     }
