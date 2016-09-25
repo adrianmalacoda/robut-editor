@@ -85,9 +85,4 @@
         app:showAsAction="never"
         android:title="@string/info"
         />
-    <item
-        android:id="@id/im_donate"
-        app:showAsAction="never"
-        android:title="@string/donation_action"
-        />
 </menu>
