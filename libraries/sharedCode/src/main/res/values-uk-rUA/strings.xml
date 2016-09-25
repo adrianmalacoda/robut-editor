@@ -71,6 +71,7 @@
   <string name="open">Відкрити</string>
   <string name="file_saved_with_success">Файл %1$s було успішно збережено!</string>
   <string name="open_a_file">Відкрити файл</string>
+  <string name="open_folder">Open folder</string>
   <string name="no">Ні</string>
   <string name="new_file">Новий файл</string>
   <string name="delete_current_file">Видалити поточний файл</string>

@@ -26,7 +26,9 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/bg_key">
 
     <ImageView
         android:id="@android:id/icon"
@@ -43,7 +45,11 @@
         android:ellipsize="end"
         android:paddingStart="56dp"
         android:paddingLeft="56dp"
-        android:text="FILE NAME"/>
+        android:text="FILE NAME"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:textIsSelectable="false"/>
 
     <TextView
         android:id="@android:id/text2"
@@ -56,6 +62,10 @@
         android:ellipsize="end"
         android:paddingStart="56dp"
         android:paddingLeft="56dp"
-        android:text="DETAIL 1"/>
+        android:text="DETAIL 1"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:textIsSelectable="false"/>
 
 </RelativeLayout>

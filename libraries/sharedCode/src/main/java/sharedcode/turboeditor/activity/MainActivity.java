@@ -31,6 +31,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -53,6 +54,7 @@ import android.text.method.KeyListener;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -74,6 +76,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -133,6 +136,7 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
             ID_COPY = android.R.id.copy,
             ID_PASTE = android.R.id.paste,
             SELECT_FILE_CODE = 121,
+            SELECT_FOLDER_CODE = 122,
             SYNTAX_DELAY_MILLIS_SHORT = 250,
             SYNTAX_DELAY_MILLIS_LONG = 1500,
             ID_UNDO = R.id.im_undo,
@@ -174,7 +178,6 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
     private PageSystemButtons pageSystemButtons;
     private static String currentEncoding = "UTF-16";
     private Toolbar toolbar;
-
     /*
     Navigation Drawer
      */
@@ -335,12 +338,35 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                 final GreatUri newUri = new GreatUri(data, AccessStorageApi.getPath(this, data), AccessStorageApi.getName(this, data));
 
                 newFileToOpen(newUri, "");
+            } else if (requestCode == SELECT_FOLDER_CODE) {
+                FileFilter fileFilter = new FileFilter() {
+                    public boolean accept(File file) {
+                        return file.isFile();
+                    }
+                };
+                final Uri data = intent.getData();
+                File dir = new File(data.getPath());
+                File[] fileList = dir.listFiles(fileFilter);
+                for(int i = 0 ; i < fileList.length ; i++){
+                    Uri particularUri = Uri.parse("file://" + fileList[i].getPath());
+                    final GreatUri newUri = new GreatUri(particularUri, AccessStorageApi.getPath(this, particularUri), AccessStorageApi.getName(this, particularUri));
+                    greatUris.add(newUri);
+
+                    refreshList(newUri, true, false);
+                    arrayAdapter.selectPosition(newUri);
+                }
+                if(fileList.length > 0) {
+                    Uri particularUri = Uri.parse("file://" + fileList[0].getPath());
+                    final GreatUri newUri = new GreatUri(particularUri, AccessStorageApi.getPath(this, particularUri), AccessStorageApi.getName(this, particularUri));
+                    newFileToOpen(newUri, "");
+                }
+
             } else {
 
                 final Uri data = intent.getData();
                 final GreatUri newUri = new GreatUri(data, AccessStorageApi.getPath(this, data), AccessStorageApi.getName(this, data));
 
-               // grantUriPermission(getPackageName(), data, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                // grantUriPermission(getPackageName(), data, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 final int takeFlags = intent.getFlags()
                         & (Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -363,6 +389,7 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                     }).execute();
                 }
             }
+
         }
     }
 
@@ -1190,6 +1217,24 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
             subActivity.putExtra("action", SelectFileActivity.Actions.SelectFile);
             AnimationUtils.startActivityWithScale(this, subActivity, true, SELECT_FILE_CODE, view);
         }
+    }
+    public void OpenFolder(View view) { //http://stackoverflow.com/questions/21544331/trying-open-a-specific-folder-in-android-using-intent
+        //http://www.androidpub.com/1773967 폴더안의 파일들 불러오기
+        //http://vissel.tistory.com/97 리스트 뷰에서 sdcard에서 파일 읽어와 텍스트 화면에 뿌리기 .
+        //http://it77.tistory.com/34 특정 경로에 있는 이미지파일 목록을 불러오자
+        //http://nekomimi.tistory.com/674 폴더리스트 가져오기, 모든 폴더에서 파일 가져오기
+        //http://jungws55.tistory.com/227 하위디렉토리 폴더와 파일 읽기
+        //http://stackoverflow.com/questions/8723738/open-folder-intent-chooser
+        //http://www.blackmoonit.com/2010/02/handling-browse-for-folder-intents/ Handling “Browse for Folder” intents
+        //http://www.androidsnippets.com/pick-a-file-or-folder-with-andexplorer-intent.html Pick a file (or folder) with AndExplorer Intent
+        //http://www.codeproject.com/Articles/547636/Android-Ready-to-use-simple-directory-chooser-dial
+        //https://github.com/passy/Android-DirectoryChooser
+        //https://android-arsenal.com/tag/35
+        Intent subActivity = new Intent(MainActivity.this, SelectFileActivity.class);
+        subActivity.putExtra("foldermode",true);
+        subActivity.putExtra("action", SelectFileActivity.Actions.SelectFile);
+        AnimationUtils.startActivityWithScale(this, subActivity, true, SELECT_FOLDER_CODE, view);
+
     }
 
     public void CreateFile(View view) {

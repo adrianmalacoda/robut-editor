@@ -37,6 +37,8 @@ public class PageSystem {
 
         final int charForPage = 20000;
         final int firstPageChars = 50000;
+        final int lineForPage = 250;
+
 
         this.pageSystemInterface = pageSystemInterface;
         pages = new LinkedList<>();
@@ -46,8 +48,9 @@ public class PageSystem {
         int nextIndexOfReturn;
         final int textLength = text.length();
         boolean pageSystemEnabled = PreferenceHelper.getSplitText(context);
+        boolean splitByLineEnablec = PreferenceHelper.getSplitByLine(context);
 
-        if (pageSystemEnabled) {
+        if (pageSystemEnabled && !splitByLineEnablec) {
             while (i < textLength) {
                 // first page is longer
                 to = i + (i == 0 ? firstPageChars : charForPage);
@@ -57,13 +60,37 @@ public class PageSystem {
                 pages.add(text.substring(i, to));
                 i = to + 1;
             }
+            if (i == 0)
+                pages.add("");
+        } else if(pageSystemEnabled && splitByLineEnablec){
+            int linecount = 0;
+            to = 0;
+            while (i < textLength) {
+                // first page is longer
+                nextIndexOfReturn = text.indexOf("\n", to);
+                if (nextIndexOfReturn > to) {
+                    to = nextIndexOfReturn;
+                    linecount++;
+                }
+                if (to > text.length()) {
+                    to = text.length();
+                    pages.add(text.substring(i, to));
+                    i = to;
+                }
+                if (linecount >= lineForPage) {
+                    pages.add(text.substring(i, to));
+                    i = to;
+                    linecount = 0;
+                }
 
-
+                to++;
+            }
             if (i == 0)
                 pages.add("");
         } else {
             pages.add(text);
         }
+
 
         startingLines = new int[pages.size()];
         setStartingLines();

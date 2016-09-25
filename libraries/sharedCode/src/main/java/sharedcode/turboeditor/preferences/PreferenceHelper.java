@@ -147,6 +147,10 @@ public final class PreferenceHelper {
         return getPrefs(context).getBoolean("page_system_active", true);
     }
 
+    public static boolean getSplitByLine(Context context){
+        return getPrefs(context).getBoolean("split_by_line", true);
+    }
+
     public static boolean hasDonated(Context context) {
         return getPrefs(context).getBoolean("has_donated", false);
     }
@@ -222,6 +226,10 @@ public final class PreferenceHelper {
 
     public static void setSplitText(Context context, boolean value) {
         getEditor(context).putBoolean("page_system_active", value).commit();
+    }
+
+    public static void setSplitByLine(Context context, boolean value){
+        getEditor(context).putBoolean("split_by_line",value).commit();
     }
 
     public static void setSendErrorReport(Context context, boolean value) {

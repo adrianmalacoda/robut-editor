@@ -129,6 +129,7 @@
   <string name="open_source_license">Licencia de codigo abierto</string>
   <string name="open_source_license_summary">Ver licencia de codigo abierto</string>
   <string name="open_a_file">Abrir un archivo</string>
+  <string name="open_folder">Open folder</string>
   <string name="open_this_time_only">Abrir solo esta vez</string>
   <string name="change_list_type">Cambiar tipo de lista</string>
   <string name="use_monospace">Usar monoespacio</string>
