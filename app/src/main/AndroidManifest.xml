@@ -19,6 +19,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maskyn.fileeditorpro"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -38,7 +39,8 @@
         android:hardwareAccelerated="true"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:name="sharedcode.turboeditor.application.MyApp"
+        android:name="com.maskyn.fileeditorpro.application.MyApp"
+        tools:replace="android:label"
         >
 
         <!-- android:alwaysRetainTaskState="true" -->
@@ -117,7 +119,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="sharedcode.turboeditor.activity.SelectFileActivity"
+            android:name="com.maskyn.fileeditorpro.activity.SelectFileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/open_a_file"
             android:exported="true"
@@ -153,7 +155,7 @@
             android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H"
             android:value="598.0dip" />
 
-        <activity android:name="sharedcode.turboeditor.activity.MarkdownActivity" />
+        <activity android:name="com.maskyn.fileeditorpro.activity.MarkdownActivity" />
 
     </application>
 

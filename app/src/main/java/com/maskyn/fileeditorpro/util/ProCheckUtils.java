@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2016 Adrian Malacoda
  * Copyright (C) 2014 Vlad Mihalachi
  *
  * This file is part of Robut Editor.
@@ -18,38 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package com.maskyn.fileeditorpro.util;
 
+import android.content.Context;
 
-apply plugin: 'com.android.library'
+public class ProCheckUtils {
+    public static boolean isPro(Context context, boolean includeDonations) {
 
-android {
-    compileSdkVersion 22
-    buildToolsVersion '22.0.1'
-
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        // happy new year
+        return context.getPackageName().equals("com.maskyn.fileeditorpro");
+        /*
+        if (Build.FOR_AMAZON)
+            return true;
+        else if ()
+            return true;
+        else if (includeDonations && PreferenceHelper.hasDonated(context))
+            return true;
+        else
+            return false;*/
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
+    public static boolean isPro(Context context) {
+        return isPro(context, true);
     }
 }
