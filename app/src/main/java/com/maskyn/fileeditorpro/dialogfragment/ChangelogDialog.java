@@ -27,14 +27,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import it.gmariotti.changelibs.library.view.ChangeLogListView;
 import com.maskyn.fileeditorpro.R;
-import com.maskyn.fileeditorpro.util.Build;
 
 public class ChangelogDialog extends DialogFragment {
 
@@ -66,25 +63,6 @@ public class ChangelogDialog extends DialogFragment {
                             }
                         }
                 )
-                .setPositiveButton(R.string.vota, new DialogInterface.OnClickListener() {
-                    /**
-                     * {@inheritDoc}
-                     */
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        try {
-                            if (Build.FOR_AMAZON) {
-                                String url = "amzn://apps/android?p=com.maskyn.fileeditor";
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            } else {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.maskyn.fileeditor"))
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-                })
                 .create();
 
     }

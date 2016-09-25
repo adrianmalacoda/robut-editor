@@ -65,9 +65,11 @@
     <string name="preferenze">Preferences</string>
     <string name="salva">Save</string>
     <string name="save_as">Save as</string>
+    <string name="rinomina">Rename</string>
     <string name="menu_syntax_highlight">Syntax highlight</string>
     <string name="testo_indietro">Undo</string>
     <string name="testo_rifai">Redo</string>
+    <string name="seleziona">Select</string>
     <string name="open">Open</string>
     <string name="file_saved_with_success">The file %1$s was saved with success!</string>
     <string name="open_a_file">Open a file</string>
@@ -83,7 +85,10 @@
     <string name="accessory_view">Accessory view</string>
     <string name="file_cannot_be_renamed">The file cannot be renamed</string>
     <string name="use_storage_access_framework">Use the "Storage Access Framework"</string>
-
     <string name="split_by_line">Split By Line</string>
-
+    <string name="name">Name</string>
+    <string name="size">Size</string>
+    <string name="modification_date">Modification date</string>
+    <string name="home">Home</string>    
+    <string name="err_occured">An error occurred</string>
 </resources>
