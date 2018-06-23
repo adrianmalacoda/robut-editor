@@ -3,14 +3,14 @@
 <!--
   ~ Copyright (C) 2014 Vlad Mihalachi
   ~
-  ~ This file is part of Robut Editor.
+  ~ This file is part of Text Editor 8000.
   ~
-  ~ Robut Editor is free software: you can redistribute it and/or modify
+  ~ Text Editor 8000 is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ Robut Editor is distributed in the hope that it will be useful,
+  ~ Text Editor 8000 is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   ~ GNU General Public License for more details.
@@ -61,7 +61,7 @@
   <string name="codifica">Codifica</string>
   <string name="condividi">Compartir</string>
   <string name="info">Informació</string>
-  <string name="nome_app_turbo_editor">Robut Editor</string>
+  <string name="nome_app_turbo_editor">Text Editor 8000</string>
   <string name="preferenze">Preferències</string>
   <string name="salva">Desa</string>
   <string name="save_as">Save as</string>
