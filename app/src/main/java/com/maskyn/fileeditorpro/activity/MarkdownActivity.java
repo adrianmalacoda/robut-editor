@@ -41,6 +41,7 @@ public class MarkdownActivity extends Activity {
 	}
 
   private static class MarkdownView extends WebView {
+    private static final String CSS_LINK = "<link rel='stylesheet' type='text/css' href='%s'>";
     private final Parser parser;
     private final HtmlRenderer renderer;
 
@@ -51,7 +52,9 @@ public class MarkdownActivity extends Activity {
     }
 
     public void loadMarkdown(String content, String cssUri) {
-      loadData(renderer.render(parser.parse(content)), "text/html", null);
+      String html = String.format(CSS_LINK, cssUri);
+      html = html += renderer.render(parser.parse(content));
+      loadDataWithBaseURL(null, html, "text/html", null, null);
     }
   }
 }
