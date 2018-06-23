@@ -1,14 +1,15 @@
 /*
  * Copyright (C) 2014 Vlad Mihalachi
+ * Copyright (C) 2018 Adrian Malacoda
  *
- * This file is part of Robut Editor.
+ * This file is part of Text Editor 8000.
  *
- * Robut Editor is free software: you can redistribute it and/or modify
+ * Text Editor 8000 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Robut Editor is distributed in the hope that it will be useful,
+ * Text Editor 8000 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -19,11 +20,15 @@
 
 package com.maskyn.fileeditorpro.activity;
 
+import android.content.Context;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+import android.webkit.WebView;
 
-import us.feras.mdv.MarkdownView;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 public class MarkdownActivity extends Activity {
     @Override
@@ -34,4 +39,19 @@ public class MarkdownActivity extends Activity {
 		setContentView(webView);
 		webView.loadMarkdown(getIntent().getStringExtra("text"), "file:///android_asset/classic_theme_markdown.css");
 	}
+
+  private static class MarkdownView extends WebView {
+    private final Parser parser;
+    private final HtmlRenderer renderer;
+
+    MarkdownView (Context context) {
+      super(context);
+      parser = Parser.builder().build();
+      renderer = HtmlRenderer.builder().build();
+    }
+
+    public void loadMarkdown(String content, String cssUri) {
+      loadData(renderer.render(parser.parse(content)), "text/html", null);
+    }
+  }
 }
