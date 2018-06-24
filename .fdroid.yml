@@ -1,25 +1,25 @@
 Categories:
   - Writing
 License: GPL-3.0-or-later
-Web Site: https://github.com/adrianmalacoda/text-editor-8000
-Source Code: https://github.com/adrianmalacoda/text-editor-8000
-Issue Tracker: https://github.com/adrianmalacoda/text-editor-8000/issues
+WebSite: https://github.com/adrianmalacoda/text-editor-8000
+SourceCode: https://github.com/adrianmalacoda/text-editor-8000
+IssueTracker: https://github.com/adrianmalacoda/text-editor-8000/issues
 
-Auto Name: Text Editor 8000
+AutoName: Text Editor 8000
 Summary: Simple text editor
 Description: Simple, yet powerful editor for text files.
 
-Repo Type: git
-Repo: https://github.com/adrianmalacoda/text-editor-8000
+RepoType: git
+Repo: .
 
 builds:
-  - versionName: 1.20
+  - versionName: "1.20"
     versionCode: 48
-    commit: metadata-test
+    commit: HEAD
     subdir: app
     gradle: yes
 
-Auto Update Mode: None
-Update Check Mode: RepoManifest
-Current Version: 1.20
-Current Version Code: 48
+AutoUpdateMode: None
+UpdateCheckMode: RepoManifest
+CurrentVersion: 1.20
+CurrentVersion Code: 48
