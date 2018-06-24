@@ -1,0 +1,9 @@
+image: fdroidbuild:latest
+
+build-apk:
+  script:
+    - fdroid build
+  artifacts:
+    paths:
+      - unsigned/*.apk
+      - unsigned/*.tar.gz
