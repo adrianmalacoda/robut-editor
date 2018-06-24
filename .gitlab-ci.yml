@@ -1,5 +1,4 @@
-#image: fdroidbuild:latest
-image: http://gitlab.monarch-pass.net/malacoda/fdroid-docker-build.git
+image: fdroidbuild:latest
 
 build-apk:
   script:
