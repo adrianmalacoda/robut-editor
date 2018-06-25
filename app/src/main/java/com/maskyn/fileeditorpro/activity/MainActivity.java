@@ -68,8 +68,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.faizmalkani.floatingactionbutton.FloatingActionButton;
-import com.spazedog.lib.rootfw4.RootFW;
-import com.spazedog.lib.rootfw4.utils.io.FileReader;
+import com.topjohnwu.superuser.io.SuFileInputStream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -978,10 +977,8 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                     encoding = "UTF-8";
 
                     // Connect the shared connection
-                    if (RootFW.connect()) {
-                        FileReader reader = RootFW.getFileReader(path);
-                        buffer = new BufferedReader(reader);
-                    }
+                    InputStreamReader reader = new InputStreamReader(new SuFileInputStream(path));
+                    buffer = new BufferedReader(reader);
                 } else {
 
                     boolean autoencoding = PreferenceHelper.getAutoEncoding(MainActivity.this);
@@ -1008,9 +1005,6 @@ public abstract class MainActivity extends ActionBarActivity implements IHomeAct
                     buffer.close();
                     fileText = stringBuilder.toString();
                 }
-
-                if (isRootRequired)
-                    RootFW.disconnect();
             }
 
             @Override

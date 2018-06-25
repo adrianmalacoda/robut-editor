@@ -25,12 +25,9 @@ import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.spazedog.lib.rootfw4.RootFW;
-import com.spazedog.lib.rootfw4.Shell;
-import com.spazedog.lib.rootfw4.utils.File;
-import com.spazedog.lib.rootfw4.utils.Filesystem;
-
+import com.topjohnwu.superuser.io.SuFileOutputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -73,7 +70,6 @@ public class SaveFileTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(final Void... voids) {
 
         boolean isRootNeeded = false;
-        Shell.Result resultRoot = null;
 
         try {
             String filePath = uri.getFilePath();
@@ -93,34 +89,11 @@ public class SaveFileTask extends AsyncTask<Void, Void, Void> {
                 }
                 // if we can read the file associated with the uri
                 else {
-
-                    if (RootFW.connect()) {
-                        Filesystem.Disk systemPart = RootFW.getDisk(uri.getParentFolder());
-                        systemPart.mount(new String[]{"rw"});
-
-                        File file = RootFW.getFile(uri.getFilePath());
-                        resultRoot = file.writeResult(newContent);
-
-                        RootFW.disconnect();
-                    }
-
+                    IOUtils.write(newContent, new SuFileOutputStream(uri.getFilePath()), encoding);
                 }
-
             }
 
-
-            if (isRootNeeded) {
-                if (resultRoot != null && resultRoot.wasSuccessful()) {
-                    message = positiveMessage;
-                }
-                else if (resultRoot != null) {
-                    message = negativeMessage + " command number: " + resultRoot.getCommandNumber() + " result code: " + resultRoot.getResultCode() + " error lines: " + resultRoot.getString();
-                }
-                else
-                    message = negativeMessage;
-            }
-            else
-                message = positiveMessage;
+            message = positiveMessage;
         } catch (Exception e) {
             e.printStackTrace();
             message = e.getMessage();

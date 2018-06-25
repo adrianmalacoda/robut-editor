@@ -24,11 +24,18 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 
-public class MyApp extends Application {
+import com.topjohnwu.superuser.Shell;
+
+public class MyApp extends Shell.ContainerApp {
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Shell initialization
+        Shell.setFlags(Shell.FLAG_REDIRECT_STDERR);
+        Shell.verboseLogging(true);
+
         // force to sow the overflow menu icon
         try {
             ViewConfiguration config = ViewConfiguration.get(this);

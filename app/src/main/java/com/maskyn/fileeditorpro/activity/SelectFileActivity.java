@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faizmalkani.floatingactionbutton.FloatingActionButton;
-import com.spazedog.lib.rootfw4.RootFW;
+import com.topjohnwu.superuser.io.SuFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -383,24 +383,22 @@ public class SelectFileActivity extends ActionBarActivity implements SearchView.
                 currentFolder = tempFolder.getAbsolutePath();
 
                 if (!tempFolder.canRead()) {
-                    if (RootFW.connect()) {
-                        com.spazedog.lib.rootfw4.utils.File folder = RootFW.getFile(currentFolder);
-                        com.spazedog.lib.rootfw4.utils.File.FileStat[] stats = folder.getDetailedList();
+                    SuFile folder = new SuFile(currentFolder);
+                    SuFile[] files = folder.listFiles();
 
-                        if (stats != null) {
-                            for (com.spazedog.lib.rootfw4.utils.File.FileStat stat : stats) {
-                                if (stat.type().equals("d")) {
-                                    folderDetails.add(new AdapterDetailedList.FileDetail(stat.name(),
-                                            getString(R.string.folder),
-                                            ""));
-                                } else if (!FilenameUtils.isExtension(stat.name().toLowerCase(), unopenableExtensions)
-                                        && stat.size() <= Build.MAX_FILE_SIZE * FileUtils.ONE_KB) {
-                                    final long fileSize = stat.size();
-                                    //SimpleDateFormat format = new SimpleDateFormat("MMM dd, yyyy  hh:mm a");
-                                    //String date = format.format("");
-                                    fileDetails.add(new AdapterDetailedList.FileDetail(stat.name(),
-                                            FileUtils.byteCountToDisplaySize(fileSize), ""));
-                                }
+                    if (files != null) {
+                        for (SuFile file : files) {
+                            if (file.isDirectory()) {
+                                folderDetails.add(new AdapterDetailedList.FileDetail(file.getName(),
+                                        getString(R.string.folder),
+                                        ""));
+                            } else if (!FilenameUtils.isExtension(file.getName().toLowerCase(), unopenableExtensions)
+                                    && file.length() <= Build.MAX_FILE_SIZE * FileUtils.ONE_KB) {
+                                final long fileSize = file.length();
+                                //SimpleDateFormat format = new SimpleDateFormat("MMM dd, yyyy  hh:mm a");
+                                //String date = format.format("");
+                                fileDetails.add(new AdapterDetailedList.FileDetail(file.getName(),
+                                        FileUtils.byteCountToDisplaySize(fileSize), ""));
                             }
                         }
                     }

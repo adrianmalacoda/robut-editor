@@ -58,8 +58,7 @@ android {
 }
 
 dependencies {
-    compile project(':libraries:sharedCode')
-    //compile 'com.spazedog.lib:rootfw_gen4:+@aar'
+    compile 'com.github.topjohnwu:libsu:1.2.0'
     compile project(':libraries:FloatingActionButton')
     compile 'org.apache.commons:commons-lang3:+'
     compile 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
