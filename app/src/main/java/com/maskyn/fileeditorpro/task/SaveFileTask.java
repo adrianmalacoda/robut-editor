@@ -38,6 +38,8 @@ import com.maskyn.fileeditorpro.activity.MainActivity;
 import com.maskyn.fileeditorpro.util.Device;
 import com.maskyn.fileeditorpro.util.GreatUri;
 
+import android.util.Log;
+
 public class SaveFileTask extends AsyncTask<Void, Void, Void> {
 
     private final MainActivity activity;
@@ -89,7 +91,9 @@ public class SaveFileTask extends AsyncTask<Void, Void, Void> {
                 }
                 // if we can read the file associated with the uri
                 else {
-                    IOUtils.write(newContent, new SuFileOutputStream(uri.getFilePath()), encoding);
+                    SuFileOutputStream out = new SuFileOutputStream(uri.getFilePath());
+                    IOUtils.write(newContent, out, encoding);
+                    out.close();
                 }
             }
 
