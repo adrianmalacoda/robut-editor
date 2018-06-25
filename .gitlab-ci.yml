@@ -3,7 +3,6 @@ image: fdroidbuild:latest
 build-apk:
   script:
     - fdroid build
-    - fdroid nightly
   artifacts:
     paths:
       - unsigned/*.apk
