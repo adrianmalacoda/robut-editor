@@ -8,7 +8,5 @@ This project undergoes sporadic bursts of activity. There's no timeframe for a r
 
 The general policy is that master is always buildable and should run fine, but there's no guarantees.
 
-Also, [build artifacts](https://gitlab.monarch-pass.net/malacoda/text-editor-8000/-/jobs/artifacts/master/download?job=build-apk) from master are available on the Monarch Pass GitLab. Note that as of now these builds are not signed so you'll need to sign them yourself before installing them. Use at your own risk!
-
 ## License
 GNU General Public License version 3, see [LICENSE](./license).
